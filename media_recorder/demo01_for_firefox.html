@@ -58,7 +58,10 @@ var recControl = function(){
     else{
         el.rec.textContent = 'REC';
         recorder.stop();
-        stream.stop();
+
+        //firefoxの場合はstream.stop()も使える
+        //stream.stop();
+        stream.getAudioTracks()[0].stop();
         stream = undefined;
     }
 }
