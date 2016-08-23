@@ -1,0 +1,80 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="cache-control" content="no-cache">
+    <title>MediaRecorder Demo for chrome</title>
+  </head>
+  <body>
+
+<h1>MediaRecorder Demo for chrome</h1>
+<button class="rec">REC</button>
+<a class="download"></a>
+<audio class="audio"></audio>
+<script>
+navigator.getUserMedia =
+    navigator.getUserMedia ||
+    navigator.webkitGetUserMedia ||
+    navigator.mozGetUserMedia ||
+    navigator.msGetUserMedia;
+window.URL =
+    window.URL ||
+    window.webkitURL ||
+    window.mozURL ||
+    window.msURL;
+window.AudioContext =
+    window.AudioContext||
+    window.webkitAudioContext;
+var recordedChunks = [];
+var stream;
+var recorder;
+var recControl = function(){
+    if(typeof MediaRecorder == 'undefined') return;
+    if(!stream){
+        el.rec.textContent = 'STOP';
+        navigator.getUserMedia(
+            {
+                video: false,
+                audio: true
+            },
+            function(s){
+                stream = s;
+                recorder = new MediaRecorder(stream);
+                recorder.start();
+                recorder.ondataavailable = function(event) {
+                    if (event.data.size > 0) {
+                      recordedChunks.push(event.data);
+                    }
+                };
+            },
+            function(err){
+                console.log(err.name ? err.name : err);
+            }
+        );
+    }
+    else{
+        el.rec.textContent = 'REC';
+        recorder.stop();
+        stream.getAudioTracks()[0].stop();
+        stream = undefined;
+
+        var superBuffer = new Blob(recordedChunks);
+        var url = el.audio.src = URL.createObjectURL(superBuffer);
+        el.audio.play();
+
+        //download link
+        el.download.href = url;
+        el.download.textContent = 'download'
+        el.download.download = 'output.wav';
+    }
+}
+var el = {
+    audio : document.querySelector('.audio'),
+    rec : document.querySelector('.rec'),
+    download: document.querySelector('.download')
+}
+el.rec.addEventListener('click', recControl, false);
+</script>
+
+  </body>
+</html>
