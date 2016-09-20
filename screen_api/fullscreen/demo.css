@@ -1,0 +1,14 @@
+body{
+  text-align: center;
+  background-color: #555;
+}
+.noFullScreen img{
+  width: 300px;
+  height: 176px;
+  border: solid 4px #aaa;
+  border-radius: 16px;
+}
+.noFullScreen img:hover{
+  border-color: #00aaff;
+  cursor: pointer;
+}

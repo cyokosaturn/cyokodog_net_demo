@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+     <meta name="viewport" content="width=device-width">
+    <meta http-equiv="cache-control" content="no-cache">
+    <title>FullScreen Demo</title>
+    <link href="demo.css" rel="stylesheet"/>
+  </head>
+  <body class="noFullScreen">
+
+<h1>FullScreen Demo for Chrome/Safari</h1>
+<img src="http://www.cyokodog.net/static/img/pxgrid.png"/>
+<img src="http://www.cyokodog.net/static/img/codegrid.png"/>
+<script>
+var images = document.querySelectorAll('img');
+Array.prototype.forEach.call(images, function (image, index, nodeList) {
+  image.addEventListener('click', function(){
+    if(image.webkitRequestFullScreen) {
+      image.webkitRequestFullScreen();
+    }
+  });
+});
+document.addEventListener('webkitfullscreenchange', function(){
+  var image = document.webkitFullscreenElement;
+  if(image){
+    document.body.classList.remove('noFullScreen');
+  }
+  else{
+    document.body.classList.add('noFullScreen');
+  }
+}, false);
+</script>
+
+
+
+
+
+
+
+  </body>
+</html>
