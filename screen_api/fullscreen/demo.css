@@ -4,9 +4,10 @@ body{
 }
 .noFullScreen img{
   width: 300px;
-  height: 176px;
+  height: 233px;
   border: solid 4px #aaa;
   border-radius: 16px;
+  display: inline-block;
 }
 .noFullScreen img:hover{
   border-color: #00aaff;
