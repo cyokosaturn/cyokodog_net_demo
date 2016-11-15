@@ -1,0 +1,101 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+     <meta name="viewport" content="width=device-width">
+    <meta http-equiv="cache-control" content="no-cache">
+    <title>FullScreen Demo</title>
+    <link href="demo.css" rel="stylesheet"/>
+    <link href="adjust.css" rel="stylesheet"/>
+    <style>
+    .imageGroup:-webkit-full-screen{
+      width: 100%;
+      height: 100%;
+      position:absolute;
+      top:0;
+      left:0;
+      background-color: #003366;
+      overflow:hidden;
+    }
+    .imageGroup:-webkit-full-screen img{
+      display: none;
+    }
+    .imageGroup:-webkit-full-screen img.active{
+      display: inline-block;
+      object-fit: contain;
+      width: 100%;
+      height: 100%;
+    }
+    .prev,
+    .next{
+      display: none;
+    }
+    :-webkit-full-screen-ancestor .prev,
+    :-webkit-full-screen-ancestor .next{
+      display: inline-block;
+    }
+    </style>
+
+  </head>
+  <body>
+
+<div class="header">
+  <h1>Fullscreen API Demo</h1>
+  <h2>簡易Sliderを実装してみる</h2>
+</div>
+
+<div class="content">
+  <div class="imageGroup">
+      <img class="active" src="img/IMG_1768.png"/><img src="img/IMG_1669.jpg"/><img src="img/IMG_1645.png"/><img src="img/IMG_1778.png"/>
+  </div>
+</div>
+
+<div class="tools">
+  <button class="requestFullscreen" onClick="requestFullscreen()">Fullscreen</button>
+  <button class="prev">←</button>
+  <button class="next">→</button>
+  <button class="exitFullscreen" onClick="exitFullscreen()">Exit</button>
+</div>
+
+<div class="footer">2016/11/16</div>
+
+
+<script>
+var activeImgIndex = 0;
+var images = document.querySelectorAll('.imageGroup img');
+document.body.addEventListener('keydown', function(event){
+  if(+event.keyCode === 39){
+    activeImgIndex = (activeImgIndex+1) % images.length;
+  }
+  else if(+event.keyCode === 37){
+    activeImgIndex = ((activeImgIndex || images.length) -1) % images.length;
+  }
+  activateImage()
+});
+
+function activateImage(){
+  Array.prototype.forEach.call(images, function(image, i){
+    if(i === activeImgIndex){
+      image.classList.add('active');
+    }
+    else {
+      image.classList.remove('active');
+    }
+  });
+}
+function exitFullscreen(){
+  if(document.webkitFullscreenElement){
+    document.webkitCancelFullScreen();
+  }
+}
+function requestFullscreen(){
+  if(document.webkitFullscreenElement){
+    return;
+  }
+  document.querySelector('.imageGroup').webkitRequestFullScreen();
+  activateImage()
+}
+</script>
+
+  </body>
+</html>

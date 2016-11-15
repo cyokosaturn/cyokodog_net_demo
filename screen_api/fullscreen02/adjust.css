@@ -1,0 +1,45 @@
+/* toolbarの見た目 */
+:-webkit-full-screen-ancestor .tools{
+  z-index: 2147483647;
+  background-color: rgba(100,50,150,0.8);
+}
+:-webkit-full-screen-ancestor .tools select{
+  display: none;
+}
+:-webkit-full-screen-ancestor .tools button.requestFullscreen{
+  display: none;
+}
+:-webkit-full-screen-ancestor .tools button.exitFullscreen{
+  display: inline;
+}
+
+
+/* 土台を広げて */
+.imageGroup:-webkit-full-screen{
+  width: 100%;
+  position:absolute;
+  left:0;
+}
+/* 画像幅を等分 */
+.imageGroup:-webkit-full-screen img{
+  width:25%;
+}
+
+
+/* 先頭行に位置合わせしてスクロールで全体を読めるようにする */
+.longText:-webkit-full-screen{
+  padding: 0 10%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 80%;
+  height: 100%;
+  font-size: 200%;
+  overflow: scroll;
+}
+
+
+/* chromeバグ対応 */
+.imageGroup img:-webkit-full-screen{
+  display: inline-block;
+}

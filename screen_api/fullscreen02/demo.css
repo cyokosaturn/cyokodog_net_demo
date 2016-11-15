@@ -1,0 +1,35 @@
+html{
+  background-color: #556677;
+}
+body{
+  margin: 0;
+}
+.header,
+.footer{
+  margin: 0 40px;
+  min-height: 100px;
+}
+.content{
+  margin: 0 40px;
+  padding: 40px;
+  background-color: #eee;
+}
+.footer{
+  padding: 40px;
+  text-align: center;
+}
+.imageGroup img{
+  vertical-align:bottom;
+}
+.tools{
+  padding: 20px;
+  font-size: 20px;
+  background-color: #000;
+  position: fixed;
+  right:0;
+  top:0;
+}
+button.exitFullscreen{
+  display: none;
+}
+
